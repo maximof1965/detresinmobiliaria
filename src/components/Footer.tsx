@@ -1,0 +1,87 @@
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { siteConfig, whatsappUrl } from '@/lib/config';
+
+export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/admin')) return null;
+
+  return (
+    <footer className="border-t border-[var(--color-line)] bg-[var(--color-ink)] text-[var(--color-sand)]">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2">
+            <span className="inline-block h-6 w-6 rounded-sm bg-[var(--color-gold)]" />
+            <span className="font-display text-xl font-semibold text-white">
+              {siteConfig.fullName}
+            </span>
+          </div>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-[var(--color-sand)]/70">
+            {siteConfig.description}
+          </p>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">Explorar</h4>
+          <ul className="mt-4 space-y-2 text-sm text-[var(--color-sand)]/70">
+            <li>
+              <Link href="/propiedades" className="hover:text-white">
+                Todas las propiedades
+              </Link>
+            </li>
+            <li>
+              <Link href="/propiedades?operacion=venta" className="hover:text-white">
+                En venta
+              </Link>
+            </li>
+            <li>
+              <Link href="/propiedades?operacion=arriendo" className="hover:text-white">
+                En arriendo
+              </Link>
+            </li>
+            <li>
+              <Link href="/nosotros" className="hover:text-white">
+                Nosotros
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">Contacto</h4>
+          <ul className="mt-4 space-y-2 text-sm text-[var(--color-sand)]/70">
+            <li>{siteConfig.location}</li>
+            <li>
+              <a href={`tel:${siteConfig.whatsapp}`} className="hover:text-white">
+                {siteConfig.phoneDisplay}
+              </a>
+            </li>
+            <li>
+              <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
+                {siteConfig.email}
+              </a>
+            </li>
+            <li>
+              <a href={whatsappUrl()} target="_blank" rel="noreferrer" className="hover:text-white">
+                WhatsApp
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-6 text-xs text-[var(--color-sand)]/50 sm:flex-row sm:px-6 lg:px-8">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.fullName}. Todos los derechos reservados.
+          </p>
+          <Link href="/admin" className="hover:text-white">
+            Panel de administracion
+          </Link>
+        </div>
+      </div>
+    </footer>
+  );
+}

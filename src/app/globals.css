@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+/*
+  DESIGN TOKENS — Identidad de marca intercambiable.
+  Cambiar la marca (colores) = editar estas variables.
+  Paleta por defecto: "quiet luxury" (carbon, arena calida, dorado tenue).
+*/
+@theme {
+  --color-ink: #16150f;
+  --color-ink-soft: #3a382f;
+  --color-bg: #faf8f4;
+  --color-surface: #ffffff;
+  --color-sand: #ece4d6;
+  --color-sand-deep: #d9cdb8;
+  --color-gold: #b0894f;
+  --color-gold-deep: #8f6d38;
+  --color-muted: #6d6a60;
+  --color-line: #e4ddd0;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --radius-card: 0.9rem;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-serif);
+}
+
+/* Ocultar scrollbar en carruseles horizontales manteniendo el scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease-out both;
+}
