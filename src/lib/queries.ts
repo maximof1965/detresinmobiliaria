@@ -37,7 +37,7 @@ export async function getFeaturedProperties(limit = 6): Promise<PropertyWithImag
     .eq('destacado', true)
     .order('created_at', { ascending: false })
     .limit(limit);
-  return ((data as PropertyWithImages[]) ?? []).map(sortImages);
+  return ((data as unknown as PropertyWithImages[]) ?? []).map(sortImages);
 }
 
 export async function getLatestProperties(limit = 8): Promise<PropertyWithImages[]> {
@@ -48,7 +48,7 @@ export async function getLatestProperties(limit = 8): Promise<PropertyWithImages
     .eq('publicado', true)
     .order('created_at', { ascending: false })
     .limit(limit);
-  return ((data as PropertyWithImages[]) ?? []).map(sortImages);
+  return ((data as unknown as PropertyWithImages[]) ?? []).map(sortImages);
 }
 
 export async function getProperties(filters: PropertyFilters): Promise<PropertyWithImages[]> {
@@ -67,7 +67,7 @@ export async function getProperties(filters: PropertyFilters): Promise<PropertyW
   const { data } = await query.order('destacado', { ascending: false }).order('created_at', {
     ascending: false,
   });
-  return ((data as PropertyWithImages[]) ?? []).map(sortImages);
+  return ((data as unknown as PropertyWithImages[]) ?? []).map(sortImages);
 }
 
 export async function getPropertyBySlug(slug: string): Promise<PropertyWithImages | null> {
@@ -78,7 +78,7 @@ export async function getPropertyBySlug(slug: string): Promise<PropertyWithImage
     .eq('slug', slug)
     .eq('publicado', true)
     .maybeSingle();
-  return data ? sortImages(data as PropertyWithImages) : null;
+  return data ? sortImages(data as unknown as PropertyWithImages) : null;
 }
 
 export async function getAllPublishedSlugs(): Promise<string[]> {
