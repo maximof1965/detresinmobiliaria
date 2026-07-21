@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { PropertyWithImages } from '@/lib/database.types';
 import { formatPrice, formatArea } from '@/lib/format';
-import { labelFor, OPERACIONES, TIPOS } from '@/lib/labels';
+import { labelFor, TIPOS } from '@/lib/labels';
 
 export default function PropertyCard({ property }: { property: PropertyWithImages }) {
   const img = property.property_images?.[0]?.url;
@@ -27,16 +27,13 @@ export default function PropertyCard({ property }: { property: PropertyWithImage
             Sin imagen
           </div>
         )}
-        <div className="absolute left-3 top-3 flex gap-2">
-          <span className="rounded-full bg-[var(--color-ink)]/85 px-3 py-1 text-xs font-medium text-white backdrop-blur">
-            {labelFor(OPERACIONES, property.operacion)}
-          </span>
-          {property.destacado && (
+        {property.destacado && (
+          <div className="absolute left-3 top-3">
             <span className="rounded-full bg-[var(--color-gold)] px-3 py-1 text-xs font-medium text-white">
               Destacado
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">

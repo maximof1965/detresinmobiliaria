@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { togglePublish } from './actions';
 import DeleteButton from '@/components/admin/DeleteButton';
 import { formatPrice } from '@/lib/format';
-import { labelFor, OPERACIONES, TIPOS } from '@/lib/labels';
+import { labelFor, TIPOS } from '@/lib/labels';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,7 +43,7 @@ export default async function AdminDashboard() {
               <thead className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/30 text-left text-xs uppercase text-[var(--color-muted)]">
                 <tr>
                   <th className="px-4 py-3">Titulo</th>
-                  <th className="px-4 py-3">Tipo / Operacion</th>
+                  <th className="px-4 py-3">Tipo</th>
                   <th className="px-4 py-3">Precio</th>
                   <th className="px-4 py-3">Estado</th>
                   <th className="px-4 py-3 text-right">Acciones</th>
@@ -65,8 +65,6 @@ export default async function AdminDashboard() {
                     </td>
                     <td className="px-4 py-3 text-[var(--color-ink-soft)]">
                       {labelFor(TIPOS, p.tipo)}
-                      <br />
-                      <span className="text-xs text-[var(--color-muted)]">{labelFor(OPERACIONES, p.operacion)}</span>
                     </td>
                     <td className="px-4 py-3">{formatPrice(p.precio, p.moneda)}</td>
                     <td className="px-4 py-3">

@@ -32,18 +32,13 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/propiedades?operacion=venta" className="hover:text-white">
-                En venta
-              </Link>
-            </li>
-            <li>
-              <Link href="/propiedades?operacion=arriendo" className="hover:text-white">
-                En arriendo
-              </Link>
-            </li>
-            <li>
               <Link href="/nosotros" className="hover:text-white">
                 Nosotros
+              </Link>
+            </li>
+            <li>
+              <Link href="/contacto" className="hover:text-white">
+                Contacto
               </Link>
             </li>
           </ul>

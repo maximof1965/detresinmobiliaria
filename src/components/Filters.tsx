@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import { OPERACIONES, TIPOS, ESTADOS } from '@/lib/labels';
+import { TIPOS } from '@/lib/labels';
 
 export default function Filters() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function Filters() {
 
   function apply(formData: FormData) {
     const params = new URLSearchParams();
-    for (const key of ['operacion', 'tipo', 'ciudad', 'q', 'precioMin', 'precioMax', 'alcobas', 'banos']) {
+    for (const key of ['tipo', 'ciudad', 'q', 'precioMin', 'precioMax', 'alcobas', 'banos']) {
       const value = String(formData.get(key) ?? '').trim();
       if (value) params.set(key, value);
     }
@@ -37,17 +37,6 @@ export default function Filters() {
         className={`${open ? 'block' : 'hidden'} gap-4 p-5 lg:grid lg:grid-cols-4 lg:gap-4`}
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-4">
-          <Field label="Operacion">
-            <select name="operacion" defaultValue={get('operacion')} className={inputCls}>
-              <option value="">Todas</option>
-              {OPERACIONES.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
-          </Field>
-
           <Field label="Tipo">
             <select name="tipo" defaultValue={get('tipo')} className={inputCls}>
               <option value="">Todos</option>

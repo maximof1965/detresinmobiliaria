@@ -7,8 +7,6 @@ import { siteConfig } from '@/lib/config';
 
 const nav = [
   { href: '/propiedades', label: 'Propiedades' },
-  { href: '/propiedades?operacion=venta', label: 'Comprar' },
-  { href: '/propiedades?operacion=arriendo', label: 'Arrendar' },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/contacto', label: 'Contacto' },
 ];

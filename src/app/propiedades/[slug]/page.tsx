@@ -5,7 +5,7 @@ import Gallery from '@/components/Gallery';
 import ContactForm from '@/components/ContactForm';
 import { getPropertyBySlug } from '@/lib/queries';
 import { formatPrice, formatArea } from '@/lib/format';
-import { labelFor, OPERACIONES, TIPOS, ESTADOS } from '@/lib/labels';
+import { labelFor, TIPOS, ESTADOS } from '@/lib/labels';
 import { siteConfig, whatsappUrl } from '@/lib/config';
 
 export const revalidate = 120;
@@ -69,9 +69,6 @@ export default async function PropertyPage({
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <span className="rounded-full bg-[var(--color-ink)] px-3 py-1 text-xs font-medium text-white">
-              {labelFor(OPERACIONES, property.operacion)}
-            </span>
-            <span className="rounded-full bg-[var(--color-sand)] px-3 py-1 text-xs font-medium">
               {labelFor(TIPOS, property.tipo)}
             </span>
             <span className="rounded-full bg-[var(--color-sand)] px-3 py-1 text-xs font-medium">
@@ -177,7 +174,7 @@ export default async function PropertyPage({
       {/* Barra de contacto pegada abajo en movil */}
       <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-3 border-t border-[var(--color-line)] bg-[var(--color-surface)] p-3 lg:hidden">
         <div className="flex-1">
-          <p className="text-xs text-[var(--color-muted)]">{labelFor(OPERACIONES, property.operacion)}</p>
+          <p className="text-xs text-[var(--color-muted)]">En venta</p>
           <p className="font-semibold">{priceLabel}</p>
         </div>
         <a

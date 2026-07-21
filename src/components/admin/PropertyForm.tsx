@@ -1,7 +1,7 @@
 'use client';
 
 import type { Property } from '@/lib/database.types';
-import { OPERACIONES, TIPOS, ESTADOS } from '@/lib/labels';
+import { TIPOS, ESTADOS } from '@/lib/labels';
 
 export default function PropertyForm({
   action,
@@ -15,18 +15,11 @@ export default function PropertyForm({
   return (
     <form action={action} className="space-y-8">
       <Section title="Informacion principal">
+        {/* Por ahora la inmobiliaria solo maneja ventas */}
+        <input type="hidden" name="operacion" value="venta" />
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Titulo" className="sm:col-span-2">
             <input name="titulo" required defaultValue={initial?.titulo ?? ''} className={inputCls} />
-          </Field>
-          <Field label="Operacion">
-            <select name="operacion" defaultValue={initial?.operacion ?? 'venta'} className={inputCls}>
-              {OPERACIONES.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label}
-                </option>
-              ))}
-            </select>
           </Field>
           <Field label="Tipo">
             <select name="tipo" defaultValue={initial?.tipo ?? 'casa'} className={inputCls}>
