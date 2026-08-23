@@ -42,14 +42,29 @@ export default function NosotrosPage() {
         <h2 className="mt-2 font-display text-3xl font-semibold">Mas que inmuebles, estilos de vida</h2>
         <div className="mt-6 space-y-4 leading-relaxed text-[var(--color-ink-soft)]">
           <p>
-            En {siteConfig.fullName} entendemos que comprar o arrendar una propiedad es una de las
-            decisiones mas importantes de la vida. Por eso trabajamos con dedicacion, criterio y una
-            atencion cercana en cada paso del proceso.
+            En {siteConfig.fullName} entendemos que comprar una propiedad es una de las decisiones
+            mas importantes de la vida. Por eso trabajamos con dedicacion, criterio y una atencion
+            cercana en cada paso del proceso.
           </p>
           <p>
             Seleccionamos propiedades excepcionales en las mejores zonas de Medellin y el Oriente
             Antioqueno, y las presentamos con la transparencia y el detalle que nuestros clientes
             merecen.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-[var(--color-sand)]/40">
+        <div className="mx-auto flex max-w-3xl flex-col items-center px-4 py-16 text-center sm:px-6 lg:px-8">
+          <Image
+            src="/logo.png"
+            alt={siteConfig.fullName}
+            width={260}
+            height={260}
+            className="h-auto w-52 rounded-[var(--radius-card)]"
+          />
+          <p className="mt-6 max-w-md font-display text-2xl italic text-[var(--color-ink-soft)]">
+            {siteConfig.slogan}
           </p>
         </div>
       </section>

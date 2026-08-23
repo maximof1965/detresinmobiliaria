@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logo from '@/components/Logo';
 import { siteConfig, whatsappUrl } from '@/lib/config';
 
 export default function Footer() {
@@ -12,13 +13,11 @@ export default function Footer() {
     <footer className="border-t border-[var(--color-line)] bg-[var(--color-ink)] text-[var(--color-sand)]">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2">
-            <span className="inline-block h-6 w-6 rounded-sm bg-[var(--color-gold)]" />
-            <span className="font-display text-xl font-semibold text-white">
-              {siteConfig.fullName}
-            </span>
-          </div>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-[var(--color-sand)]/70">
+          <Logo variant="light" />
+          <p className="mt-4 max-w-sm font-display text-lg italic text-[var(--color-sand)]/90">
+            {siteConfig.slogan}
+          </p>
+          <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--color-sand)]/70">
             {siteConfig.description}
           </p>
         </div>

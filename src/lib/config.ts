@@ -4,15 +4,16 @@
  * Cambiar la marca = editar este archivo + los tokens de color.
  */
 export const siteConfig = {
-  name: 'Detres',
-  fullName: 'Detres Inmobiliaria',
+  name: 'DeTres',
+  fullName: 'DeTres Inmobiliaria',
   tagline: 'Encuentra el lugar que transforma tu forma de vivir',
+  slogan: 'Mas que propiedades, oportunidades.',
   description:
-    'Inmobiliaria de propiedades exclusivas en Medellin y el Oriente Antioqueno. Venta y arriendo de casas, apartamentos, fincas y lotes.',
+    'Inmobiliaria de propiedades exclusivas en venta en Medellin y el Oriente Antioqueno. Casas, apartamentos, fincas y lotes.',
   // Numero de contacto (formato internacional sin + ni espacios para wa.me)
   whatsapp: '573007110095',
   phoneDisplay: '+57 300 711 0095',
-  email: 'contacto@detresinmobiliaria.com',
+  email: 'detresinmobiliaria@gmail.com',
   location: 'Medellin, Colombia',
   social: {
     instagram: 'https://instagram.com',

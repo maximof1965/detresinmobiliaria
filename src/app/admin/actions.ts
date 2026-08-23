@@ -102,6 +102,20 @@ export async function deleteProperty(formData: FormData) {
   revalidatePath('/propiedades');
 }
 
+export async function reorderProperties(ids: string[]) {
+  const supabase = await requireUser();
+  for (let i = 0; i < ids.length; i++) {
+    const { error } = await supabase
+      .from('properties')
+      .update({ posicion: i })
+      .eq('id', ids[i]);
+    if (error) throw new Error(error.message);
+  }
+  revalidatePath('/admin');
+  revalidatePath('/');
+  revalidatePath('/propiedades');
+}
+
 export async function togglePublish(formData: FormData) {
   const supabase = await requireUser();
   const id = String(formData.get('id') ?? '');

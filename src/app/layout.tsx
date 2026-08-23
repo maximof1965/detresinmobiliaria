@@ -25,11 +25,16 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
     title: siteConfig.fullName,
     description: siteConfig.description,
     type: 'website',
     locale: 'es_CO',
+    images: [{ url: '/logo.png', width: 1024, height: 1024, alt: siteConfig.fullName }],
   },
 };
 

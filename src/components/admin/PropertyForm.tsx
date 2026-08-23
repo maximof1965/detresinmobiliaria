@@ -1,7 +1,16 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import type { Property } from '@/lib/database.types';
 import { TIPOS, ESTADOS } from '@/lib/labels';
+import AmenitiesInput from '@/components/admin/AmenitiesInput';
+
+const LocationPicker = dynamic(() => import('@/components/admin/LocationPicker'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-72 w-full animate-pulse rounded-lg border border-[var(--color-line)] bg-[var(--color-sand)]/40" />
+  ),
+});
 
 export default function PropertyForm({
   action,
@@ -73,12 +82,12 @@ export default function PropertyForm({
           <Field label="Direccion" className="sm:col-span-2">
             <input name="direccion" defaultValue={initial?.direccion ?? ''} className={inputCls} />
           </Field>
-          <Field label="Latitud (opcional, para el mapa)">
-            <input name="lat" type="number" step="any" defaultValue={initial?.lat ?? ''} className={inputCls} />
-          </Field>
-          <Field label="Longitud (opcional, para el mapa)">
-            <input name="lng" type="number" step="any" defaultValue={initial?.lng ?? ''} className={inputCls} />
-          </Field>
+        </div>
+        <div className="mt-4">
+          <span className="mb-1 block text-xs font-medium text-[var(--color-muted)]">
+            Ubicacion en el mapa (haz clic para fijar el punto)
+          </span>
+          <LocationPicker initialLat={initial?.lat ?? null} initialLng={initial?.lng ?? null} />
         </div>
       </Section>
 
@@ -86,15 +95,10 @@ export default function PropertyForm({
         <Field label="Descripcion">
           <textarea name="descripcion" rows={6} defaultValue={initial?.descripcion ?? ''} className={`${inputCls} h-auto py-3`} />
         </Field>
-        <Field label="Amenidades (separadas por coma)" className="mt-4">
-          <textarea
-            name="amenidades"
-            rows={3}
-            defaultValue={(initial?.amenidades ?? []).join(', ')}
-            placeholder="Piscina, Jardin, Vigilancia 24h"
-            className={`${inputCls} h-auto py-3`}
-          />
-        </Field>
+        <div className="mt-4">
+          <span className="mb-1 block text-xs font-medium text-[var(--color-muted)]">Amenidades</span>
+          <AmenitiesInput initial={initial?.amenidades ?? []} />
+        </div>
         <Field label="Slug (URL, opcional; se genera automatico)" className="mt-4">
           <input name="slug" defaultValue={initial?.slug ?? ''} className={inputCls} />
         </Field>

@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { togglePublish } from './actions';
-import DeleteButton from '@/components/admin/DeleteButton';
-import { formatPrice } from '@/lib/format';
-import { labelFor, TIPOS } from '@/lib/labels';
+import InventoryList from '@/components/admin/InventoryList';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,7 +8,11 @@ export default async function AdminDashboard() {
   const supabase = await createClient();
 
   const [{ data: properties }, { data: leads }] = await Promise.all([
-    supabase.from('properties').select('*').order('created_at', { ascending: false }),
+    supabase
+      .from('properties')
+      .select('*')
+      .order('posicion', { ascending: true })
+      .order('created_at', { ascending: false }),
     supabase.from('leads').select('*').order('created_at', { ascending: false }).limit(20),
   ]);
 
@@ -37,69 +38,18 @@ export default async function AdminDashboard() {
           </Link>
         </div>
 
-        <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)]">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[720px] text-sm">
-              <thead className="border-b border-[var(--color-line)] bg-[var(--color-sand)]/30 text-left text-xs uppercase text-[var(--color-muted)]">
-                <tr>
-                  <th className="px-4 py-3">Titulo</th>
-                  <th className="px-4 py-3">Tipo</th>
-                  <th className="px-4 py-3">Precio</th>
-                  <th className="px-4 py-3">Estado</th>
-                  <th className="px-4 py-3 text-right">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {list.length === 0 && (
-                  <tr>
-                    <td colSpan={5} className="px-4 py-10 text-center text-[var(--color-muted)]">
-                      Aun no hay propiedades. Crea la primera.
-                    </td>
-                  </tr>
-                )}
-                {list.map((p) => (
-                  <tr key={p.id} className="border-b border-[var(--color-line)] last:border-0">
-                    <td className="px-4 py-3">
-                      <p className="font-medium">{p.titulo}</p>
-                      <p className="text-xs text-[var(--color-muted)]">{[p.barrio, p.ciudad].filter(Boolean).join(', ')}</p>
-                    </td>
-                    <td className="px-4 py-3 text-[var(--color-ink-soft)]">
-                      {labelFor(TIPOS, p.tipo)}
-                    </td>
-                    <td className="px-4 py-3">{formatPrice(p.precio, p.moneda)}</td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-medium ${
-                          p.publicado ? 'bg-green-100 text-green-700' : 'bg-[var(--color-sand)] text-[var(--color-muted)]'
-                        }`}
-                      >
-                        {p.publicado ? 'Publicada' : 'Oculta'}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-end gap-2">
-                        <form action={togglePublish}>
-                          <input type="hidden" name="id" value={p.id} />
-                          <input type="hidden" name="publicado" value={String(p.publicado)} />
-                          <button className="rounded-lg border border-[var(--color-line)] px-3 py-1.5 text-xs font-medium hover:bg-[var(--color-sand)]">
-                            {p.publicado ? 'Ocultar' : 'Publicar'}
-                          </button>
-                        </form>
-                        <Link
-                          href={`/admin/propiedades/${p.id}`}
-                          className="rounded-lg border border-[var(--color-line)] px-3 py-1.5 text-xs font-medium hover:bg-[var(--color-sand)]"
-                        >
-                          Editar
-                        </Link>
-                        <DeleteButton id={p.id} />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <InventoryList
+          properties={list.map((p) => ({
+            id: p.id,
+            titulo: p.titulo,
+            barrio: p.barrio,
+            ciudad: p.ciudad,
+            tipo: p.tipo,
+            precio: p.precio,
+            moneda: p.moneda,
+            publicado: p.publicado,
+          }))}
+        />
       </section>
 
       <section>

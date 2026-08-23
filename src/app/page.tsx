@@ -47,9 +47,11 @@ export default async function HomePage() {
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
               {siteConfig.tagline}
             </h1>
+            <p className="mt-4 font-display text-xl italic text-[var(--color-gold)]">
+              {siteConfig.slogan}
+            </p>
             <p className="mt-5 max-w-xl text-lg text-white/80">
-              Propiedades exclusivas en venta y arriendo, seleccionadas para quienes buscan algo
-              extraordinario.
+              Propiedades exclusivas en venta, seleccionadas para quienes buscan algo extraordinario.
             </p>
           </div>
           <div className="mt-10 max-w-4xl">
@@ -163,7 +165,7 @@ export default async function HomePage() {
       <section className="bg-[var(--color-ink)]">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-16 text-center sm:px-6 lg:px-8">
           <h2 className="max-w-2xl font-display text-3xl font-semibold text-white sm:text-4xl">
-            Tienes una propiedad para vender o arrendar?
+            Tienes una propiedad para vender?
           </h2>
           <p className="max-w-xl text-white/70">
             Te ayudamos a mostrarla ante los compradores correctos, con estrategia y presencia digital.

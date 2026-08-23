@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import type { PropertyImage } from '@/lib/database.types';
@@ -19,6 +19,16 @@ export default function ImageManager({
   const fileRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const [items, setItems] = useState<PropertyImage[]>(images);
+  const dragIndex = useRef<number | null>(null);
+  const [dragging, setDragging] = useState<number | null>(null);
+
+  const idsKey = images.map((i) => i.id).join(',');
+  useEffect(() => {
+    setItems(images);
+    // Resync solo cuando cambia el conjunto de fotos (subir/eliminar).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idsKey]);
 
   const ACCEPTED_EXT = ['png', 'jpg', 'jpeg', 'webp'];
 
@@ -33,7 +43,7 @@ export default function ImageManager({
     setBusy(true);
     setError('');
     try {
-      let orden = images.length;
+      let orden = items.length;
       for (const file of Array.from(files)) {
         if (!isAllowed(file)) {
           throw new Error(`Formato no permitido: ${file.name}. Usa PNG, JPG, JPEG o WEBP.`);
@@ -75,11 +85,44 @@ export default function ImageManager({
     }
   }
 
+  function onDragStart(i: number) {
+    dragIndex.current = i;
+    setDragging(i);
+  }
+
+  function onDragEnter(i: number) {
+    const from = dragIndex.current;
+    if (from === null || from === i) return;
+    setItems((prev) => {
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(i, 0, moved);
+      return next;
+    });
+    dragIndex.current = i;
+    setDragging(i);
+  }
+
+  async function onDragEnd() {
+    dragIndex.current = null;
+    setDragging(null);
+    const supabase = createClient();
+    setBusy(true);
+    try {
+      for (let i = 0; i < items.length; i++) {
+        await supabase.from('property_images').update({ orden: i }).eq('id', items[i].id);
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
       <h2 className="font-display text-lg font-semibold">Imagenes</h2>
       <p className="mt-1 text-sm text-[var(--color-muted)]">
-        Sube fotos desde tu equipo (PNG, JPG, JPEG o WEBP). La primera imagen sera la principal.
+        Sube fotos desde tu equipo (PNG, JPG, JPEG o WEBP). Arrastra las fotos para ordenarlas; la
+        primera sera la principal.
       </p>
 
       <input
@@ -109,11 +152,21 @@ export default function ImageManager({
       {busy && <p className="mt-3 text-sm text-[var(--color-muted)]">Procesando...</p>}
       {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
 
-      {images.length > 0 && (
+      {items.length > 0 && (
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {images.map((img, i) => (
-            <div key={img.id} className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-[var(--color-line)]">
-              <Image src={img.url} alt={img.alt ?? ''} fill sizes="200px" className="object-cover" />
+          {items.map((img, i) => (
+            <div
+              key={img.id}
+              draggable
+              onDragStart={() => onDragStart(i)}
+              onDragEnter={() => onDragEnter(i)}
+              onDragOver={(e) => e.preventDefault()}
+              onDragEnd={onDragEnd}
+              className={`group relative aspect-[4/3] cursor-move overflow-hidden rounded-lg border border-[var(--color-line)] transition-opacity ${
+                dragging === i ? 'opacity-50 ring-2 ring-[var(--color-gold)]' : ''
+              }`}
+            >
+              <Image src={img.url} alt={img.alt ?? ''} fill sizes="200px" className="pointer-events-none object-cover" />
               {i === 0 && (
                 <span className="absolute left-1 top-1 rounded bg-[var(--color-gold)] px-2 py-0.5 text-[10px] font-medium text-white">
                   Principal

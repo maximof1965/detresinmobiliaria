@@ -35,6 +35,7 @@ export async function getFeaturedProperties(limit = 6): Promise<PropertyWithImag
     .select(PROPERTY_SELECT)
     .eq('publicado', true)
     .eq('destacado', true)
+    .order('posicion', { ascending: true })
     .order('created_at', { ascending: false })
     .limit(limit);
   return ((data as unknown as PropertyWithImages[]) ?? []).map(sortImages);
@@ -46,6 +47,7 @@ export async function getLatestProperties(limit = 8): Promise<PropertyWithImages
     .from('properties')
     .select(PROPERTY_SELECT)
     .eq('publicado', true)
+    .order('posicion', { ascending: true })
     .order('created_at', { ascending: false })
     .limit(limit);
   return ((data as unknown as PropertyWithImages[]) ?? []).map(sortImages);
@@ -64,9 +66,10 @@ export async function getProperties(filters: PropertyFilters): Promise<PropertyW
   if (filters.alcobas != null) query = query.gte('alcobas', filters.alcobas);
   if (filters.banos != null) query = query.gte('banos', filters.banos);
 
-  const { data } = await query.order('destacado', { ascending: false }).order('created_at', {
-    ascending: false,
-  });
+  const { data } = await query
+    .order('posicion', { ascending: true })
+    .order('destacado', { ascending: false })
+    .order('created_at', { ascending: false });
   return ((data as unknown as PropertyWithImages[]) ?? []).map(sortImages);
 }
 

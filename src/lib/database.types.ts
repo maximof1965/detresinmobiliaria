@@ -135,6 +135,7 @@ export type Database = {
           moneda: string
           operacion: string
           parqueaderos: number
+          posicion: number
           precio: number | null
           publicado: boolean
           slug: string
@@ -161,6 +162,7 @@ export type Database = {
           moneda?: string
           operacion: string
           parqueaderos?: number
+          posicion?: number
           precio?: number | null
           publicado?: boolean
           slug: string
@@ -187,6 +189,7 @@ export type Database = {
           moneda?: string
           operacion?: string
           parqueaderos?: number
+          posicion?: number
           precio?: number | null
           publicado?: boolean
           slug?: string
