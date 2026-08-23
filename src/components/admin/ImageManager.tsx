@@ -19,7 +19,8 @@ export default function ImageManager({
   const fileRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
-  const [url, setUrl] = useState('');
+
+  const ACCEPTED = ['image/png', 'image/jpeg', 'image/webp'];
 
   async function uploadFiles(files: FileList) {
     const supabase = createClient();
@@ -28,6 +29,9 @@ export default function ImageManager({
     try {
       let orden = images.length;
       for (const file of Array.from(files)) {
+        if (!ACCEPTED.includes(file.type)) {
+          throw new Error(`Formato no permitido: ${file.name}. Usa PNG, JPG o WEBP.`);
+        }
         const ext = file.name.split('.').pop() ?? 'jpg';
         const path = `${propertyId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
         const { error: upErr } = await supabase.storage.from(BUCKET).upload(path, file);
@@ -42,25 +46,6 @@ export default function ImageManager({
       router.refresh();
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Error al subir imagenes');
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function addByUrl() {
-    if (!url.trim()) return;
-    const supabase = createClient();
-    setBusy(true);
-    setError('');
-    try {
-      const { error: insErr } = await supabase
-        .from('property_images')
-        .insert({ property_id: propertyId, url: url.trim(), orden: images.length });
-      if (insErr) throw insErr;
-      setUrl('');
-      router.refresh();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'Error al agregar la imagen');
     } finally {
       setBusy(false);
     }
@@ -88,35 +73,31 @@ export default function ImageManager({
     <div className="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
       <h2 className="font-display text-lg font-semibold">Imagenes</h2>
       <p className="mt-1 text-sm text-[var(--color-muted)]">
-        Sube fotos desde tu equipo o agrega por URL. La primera imagen sera la principal.
+        Sube fotos desde tu equipo (PNG, JPG o WEBP). La primera imagen sera la principal.
       </p>
 
-      <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          multiple
-          disabled={busy}
-          onChange={(e) => e.target.files && uploadFiles(e.target.files)}
-          className="text-sm"
-        />
-      </div>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/png,image/jpeg,image/webp"
+        multiple
+        disabled={busy}
+        onChange={(e) => e.target.files && uploadFiles(e.target.files)}
+        className="hidden"
+      />
 
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-        <input
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://... (agregar imagen por URL)"
-          className="h-11 flex-1 rounded-lg border border-[var(--color-line)] bg-white px-3 text-sm outline-none focus:border-[var(--color-gold)]"
-        />
+      <div className="mt-4">
         <button
           type="button"
-          onClick={addByUrl}
+          onClick={() => fileRef.current?.click()}
           disabled={busy}
-          className="h-11 rounded-lg border border-[var(--color-line)] px-5 text-sm font-medium hover:bg-[var(--color-sand)] disabled:opacity-60"
+          className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-[var(--color-line)] px-6 py-8 text-center transition-colors hover:border-[var(--color-gold)] hover:bg-[var(--color-sand)] disabled:opacity-60"
         >
-          Agregar URL
+          <span className="text-3xl">📷</span>
+          <span className="text-sm font-medium">Subir fotos</span>
+          <span className="text-xs text-[var(--color-muted)]">
+            Haz clic para elegir una o varias fotos (PNG, JPG, WEBP)
+          </span>
         </button>
       </div>
 
