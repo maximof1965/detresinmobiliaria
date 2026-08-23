@@ -85,7 +85,7 @@ export default function ImageManager({
       <input
         ref={fileRef}
         type="file"
-        accept="image/png,image/jpeg,image/jpg,image/webp,.png,.jpg,.jpeg,.webp"
+        accept="image/*"
         multiple
         disabled={busy}
         onChange={(e) => e.target.files && uploadFiles(e.target.files)}
