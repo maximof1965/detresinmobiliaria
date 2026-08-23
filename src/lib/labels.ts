@@ -8,12 +8,15 @@ export const OPERACIONES: Option[] = [
 
 export const TIPOS: Option[] = [
   { value: 'apartamento', label: 'Apartamento' },
+  { value: 'apartaestudio', label: 'Apartaestudio' },
   { value: 'casa', label: 'Casa' },
   { value: 'casa_campestre', label: 'Casa campestre' },
   { value: 'duplex', label: 'Duplex' },
   { value: 'finca', label: 'Finca' },
   { value: 'lote', label: 'Lote / Terreno' },
   { value: 'oficina', label: 'Oficina' },
+  { value: 'local', label: 'Local' },
+  { value: 'bodega', label: 'Bodega' },
 ];
 
 export const ESTADOS: Option[] = [
