@@ -10,8 +10,8 @@ export const siteConfig = {
   description:
     'Inmobiliaria de propiedades exclusivas en Medellin y el Oriente Antioqueno. Venta y arriendo de casas, apartamentos, fincas y lotes.',
   // Numero de contacto (formato internacional sin + ni espacios para wa.me)
-  whatsapp: '573243444117',
-  phoneDisplay: '+57 324 344 4117',
+  whatsapp: '573007110095',
+  phoneDisplay: '+57 300 711 0095',
   email: 'contacto@detresinmobiliaria.com',
   location: 'Medellin, Colombia',
   social: {
