@@ -17,9 +17,6 @@ export default function Footer() {
           <p className="mt-4 max-w-sm font-display text-lg italic text-[var(--color-sand)]/90">
             {siteConfig.slogan}
           </p>
-          <p className="mt-3 max-w-sm text-sm leading-relaxed text-[var(--color-sand)]/70">
-            {siteConfig.description}
-          </p>
         </div>
 
         <div>

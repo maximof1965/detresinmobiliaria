@@ -7,7 +7,7 @@ export const revalidate = 120;
 
 export const metadata: Metadata = {
   title: 'Propiedades',
-  description: 'Explora casas, apartamentos, fincas y lotes en venta y arriendo.',
+  description: 'Explora casas, apartamentos, fincas y lotes en venta.',
 };
 
 function num(v: string | undefined): number | undefined {

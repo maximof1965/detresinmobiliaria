@@ -8,13 +8,6 @@ export const metadata: Metadata = {
   description: `Conoce a ${siteConfig.fullName}, tu aliado en propiedades exclusivas.`,
 };
 
-const stats = [
-  { value: '+150', label: 'Clientes satisfechos' },
-  { value: '+200', label: 'Propiedades gestionadas' },
-  { value: '10', label: 'Anos de experiencia' },
-  { value: '100%', label: 'Compromiso' },
-];
-
 export default function NosotrosPage() {
   return (
     <>
@@ -66,17 +59,6 @@ export default function NosotrosPage() {
           <p className="mt-6 max-w-md font-display text-2xl italic text-[var(--color-ink-soft)]">
             {siteConfig.slogan}
           </p>
-        </div>
-      </section>
-
-      <section className="bg-[var(--color-ink)]">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="font-display text-4xl font-semibold text-[var(--color-gold)]">{s.value}</p>
-              <p className="mt-2 text-sm text-white/70">{s.label}</p>
-            </div>
-          ))}
         </div>
       </section>
 

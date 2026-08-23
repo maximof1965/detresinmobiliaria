@@ -17,7 +17,7 @@ export default function ContactoPage() {
           </p>
           <h1 className="mt-2 font-display text-4xl font-semibold">Estamos para ayudarte</h1>
           <p className="mt-4 max-w-md text-[var(--color-muted)]">
-            Cuentanos que buscas o que propiedad quieres vender o arrendar. Te responderemos lo antes
+            Cuentanos que buscas o que propiedad quieres vender. Te responderemos lo antes
             posible.
           </p>
 
