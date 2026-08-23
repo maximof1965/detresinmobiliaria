@@ -20,7 +20,13 @@ export default function ImageManager({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
-  const ACCEPTED = ['image/png', 'image/jpeg', 'image/webp'];
+  const ACCEPTED_EXT = ['png', 'jpg', 'jpeg', 'webp'];
+
+  function isAllowed(file: File) {
+    if (file.type.startsWith('image/')) return true;
+    const ext = file.name.split('.').pop()?.toLowerCase() ?? '';
+    return ACCEPTED_EXT.includes(ext);
+  }
 
   async function uploadFiles(files: FileList) {
     const supabase = createClient();
@@ -29,8 +35,8 @@ export default function ImageManager({
     try {
       let orden = images.length;
       for (const file of Array.from(files)) {
-        if (!ACCEPTED.includes(file.type)) {
-          throw new Error(`Formato no permitido: ${file.name}. Usa PNG, JPG o WEBP.`);
+        if (!isAllowed(file)) {
+          throw new Error(`Formato no permitido: ${file.name}. Usa PNG, JPG, JPEG o WEBP.`);
         }
         const ext = file.name.split('.').pop() ?? 'jpg';
         const path = `${propertyId}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
@@ -73,13 +79,13 @@ export default function ImageManager({
     <div className="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
       <h2 className="font-display text-lg font-semibold">Imagenes</h2>
       <p className="mt-1 text-sm text-[var(--color-muted)]">
-        Sube fotos desde tu equipo (PNG, JPG o WEBP). La primera imagen sera la principal.
+        Sube fotos desde tu equipo (PNG, JPG, JPEG o WEBP). La primera imagen sera la principal.
       </p>
 
       <input
         ref={fileRef}
         type="file"
-        accept="image/png,image/jpeg,image/webp"
+        accept="image/png,image/jpeg,image/jpg,image/webp,.png,.jpg,.jpeg,.webp"
         multiple
         disabled={busy}
         onChange={(e) => e.target.files && uploadFiles(e.target.files)}
@@ -96,7 +102,7 @@ export default function ImageManager({
           <span className="text-3xl">📷</span>
           <span className="text-sm font-medium">Subir fotos</span>
           <span className="text-xs text-[var(--color-muted)]">
-            Haz clic para elegir una o varias fotos (PNG, JPG, WEBP)
+            Haz clic para elegir una o varias fotos (PNG, JPG, JPEG, WEBP)
           </span>
         </button>
       </div>
