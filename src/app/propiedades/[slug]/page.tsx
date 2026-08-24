@@ -142,12 +142,6 @@ export default async function PropertyPage({
               >
                 Consultar por WhatsApp
               </a>
-              <a
-                href={`tel:${siteConfig.whatsapp}`}
-                className="mt-3 flex h-12 w-full items-center justify-center rounded-lg border border-[var(--color-line)] font-medium hover:bg-[var(--color-sand)]"
-              >
-                Llamar ahora
-              </a>
             </div>
 
             <div className="mt-6 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
