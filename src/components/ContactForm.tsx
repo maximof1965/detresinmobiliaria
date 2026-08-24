@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { siteConfig, whatsappUrl } from '@/lib/config';
 
 export default function ContactForm({
   propertyId,
@@ -18,21 +19,36 @@ export default function ContactForm({
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    const supabase = createClient();
-    const { error } = await supabase.from('leads').insert({
-      property_id: propertyId ?? null,
-      nombre: String(data.get('nombre') ?? ''),
-      telefono: String(data.get('telefono') ?? ''),
-      email: String(data.get('email') ?? ''),
-      mensaje: String(data.get('mensaje') ?? ''),
-    });
+    const nombre = String(data.get('nombre') ?? '').trim();
+    const telefono = String(data.get('telefono') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const mensaje = String(data.get('mensaje') ?? '').trim();
 
-    if (error) {
-      setStatus('error');
-      return;
+    // Guardamos el lead (para el registro interno), sin bloquear el envio a WhatsApp.
+    try {
+      const supabase = createClient();
+      await supabase.from('leads').insert({
+        property_id: propertyId ?? null,
+        nombre,
+        telefono,
+        email,
+        mensaje,
+      });
+    } catch {
+      // Si falla el guardado igual continuamos a WhatsApp.
     }
-    form.reset();
-    setStatus('ok');
+
+    const lineas = [
+      `Hola ${siteConfig.name}, quiero mas informacion${
+        propertyTitle ? ` sobre "${propertyTitle}"` : ''
+      }.`,
+      nombre ? `Nombre: ${nombre}` : '',
+      telefono ? `Telefono: ${telefono}` : '',
+      email ? `Correo: ${email}` : '',
+      mensaje ? `Mensaje: ${mensaje}` : '',
+    ].filter(Boolean);
+
+    window.location.href = whatsappUrl(lineas.join('\n'));
   }
 
   return (
@@ -57,16 +73,14 @@ export default function ContactForm({
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="h-12 w-full rounded-lg bg-[var(--color-ink)] px-6 text-sm font-medium text-white hover:opacity-90 disabled:opacity-60"
+        className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-6 text-sm font-medium text-white hover:opacity-90 disabled:opacity-60"
       >
-        {status === 'loading' ? 'Enviando...' : 'Enviar solicitud'}
+        {status === 'loading' ? 'Abriendo WhatsApp...' : 'Enviar por WhatsApp'}
       </button>
+      <p className="text-center text-xs text-[var(--color-muted)]">
+        Al enviar, se abrira WhatsApp con tu mensaje listo para enviarnos.
+      </p>
 
-      {status === 'ok' && (
-        <p className="rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
-          Gracias, hemos recibido tu solicitud. Te contactaremos muy pronto.
-        </p>
-      )}
       {status === 'error' && (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
           Ocurrio un error al enviar. Intenta de nuevo o escribenos por WhatsApp.

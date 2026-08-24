@@ -39,7 +39,6 @@ export default async function PropertyPage({
 
   const area = formatArea(property.area_m2);
   const priceLabel = formatPrice(property.precio, property.moneda);
-  const agent = property.agents;
   const waMessage = `Hola ${siteConfig.name}, me interesa la propiedad "${property.titulo}" (${priceLabel}).`;
 
   const specs = [
@@ -149,16 +148,6 @@ export default async function PropertyPage({
               >
                 Llamar ahora
               </a>
-
-              {agent && (
-                <div className="mt-6 flex items-center gap-3 border-t border-[var(--color-line)] pt-6">
-                  <div className="h-12 w-12 flex-none rounded-full bg-[var(--color-sand)]" />
-                  <div>
-                    <p className="font-medium">{agent.nombre}</p>
-                    <p className="text-sm text-[var(--color-muted)]">{agent.cargo ?? 'Asesor comercial'}</p>
-                  </div>
-                </div>
-              )}
             </div>
 
             <div className="mt-6 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
