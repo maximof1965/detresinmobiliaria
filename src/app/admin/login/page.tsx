@@ -1,9 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { siteConfig } from '@/lib/config';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,16 +30,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-sand)]/40 px-4">
-      <div className="w-full max-w-sm rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-8 shadow-lg">
-        <div className="mb-6 flex items-center gap-2">
-          <span className="inline-block h-6 w-6 rounded-sm bg-[var(--color-gold)]" />
-          <span className="font-display text-xl font-semibold">{siteConfig.name}</span>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-[var(--color-sand)]/60 via-[var(--color-bg)] to-[var(--color-sand)]/40 px-4">
+      <div className="w-full max-w-sm rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-8 shadow-xl">
+        <div className="mb-6 flex flex-col items-center text-center">
+          <Image
+            src="/logo.png"
+            alt="DeTres Inmobiliaria"
+            width={120}
+            height={120}
+            priority
+            className="h-24 w-24 rounded-[var(--radius-card)] object-contain"
+          />
+          <h1 className="mt-4 font-display text-2xl font-semibold">Panel de administracion</h1>
+          <p className="mt-1 text-sm text-[var(--color-muted)]">
+            Ingresa con tu cuenta de administrador.
+          </p>
         </div>
-        <h1 className="font-display text-2xl font-semibold">Panel de administracion</h1>
-        <p className="mt-1 text-sm text-[var(--color-muted)]">Ingresa con tu cuenta de administrador.</p>
 
-        <form onSubmit={submit} className="mt-6 space-y-3">
+        <form onSubmit={submit} className="mt-2 space-y-3">
           <input name="email" type="email" required placeholder="Correo" className={inputCls} />
           <input name="password" type="password" required placeholder="Contrasena" className={inputCls} />
           {error && <p className="text-sm text-red-600">{error}</p>}
