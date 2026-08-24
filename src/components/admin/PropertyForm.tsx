@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import type { Property } from '@/lib/database.types';
 import { TIPOS, ESTADOS } from '@/lib/labels';
 import AmenitiesInput from '@/components/admin/AmenitiesInput';
@@ -21,6 +22,10 @@ export default function PropertyForm({
   initial?: Property | null;
   submitLabel: string;
 }) {
+  const [ciudad, setCiudad] = useState(initial?.ciudad ?? '');
+  const [barrio, setBarrio] = useState(initial?.barrio ?? '');
+  const [direccion, setDireccion] = useState(initial?.direccion ?? '');
+
   return (
     <form action={action} className="space-y-8">
       <Section title="Informacion principal">
@@ -74,20 +79,43 @@ export default function PropertyForm({
       <Section title="Ubicacion">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Ciudad">
-            <input name="ciudad" defaultValue={initial?.ciudad ?? ''} className={inputCls} />
+            <input
+              name="ciudad"
+              value={ciudad}
+              onChange={(e) => setCiudad(e.target.value)}
+              className={inputCls}
+            />
           </Field>
           <Field label="Barrio / sector">
-            <input name="barrio" defaultValue={initial?.barrio ?? ''} className={inputCls} />
+            <input
+              name="barrio"
+              value={barrio}
+              onChange={(e) => setBarrio(e.target.value)}
+              className={inputCls}
+            />
           </Field>
           <Field label="Direccion" className="sm:col-span-2">
-            <input name="direccion" defaultValue={initial?.direccion ?? ''} className={inputCls} />
+            <input
+              name="direccion"
+              value={direccion}
+              onChange={(e) => setDireccion(e.target.value)}
+              className={inputCls}
+            />
           </Field>
         </div>
         <div className="mt-4">
           <span className="mb-1 block text-xs font-medium text-[var(--color-muted)]">
-            Ubicacion en el mapa (haz clic para fijar el punto)
+            Ubicacion en el mapa (haz clic para fijar el punto y autocompletar la direccion)
           </span>
-          <LocationPicker initialLat={initial?.lat ?? null} initialLng={initial?.lng ?? null} />
+          <LocationPicker
+            initialLat={initial?.lat ?? null}
+            initialLng={initial?.lng ?? null}
+            onPick={(info) => {
+              if (info.direccion) setDireccion(info.direccion);
+              setCiudad((prev) => prev || info.ciudad);
+              setBarrio((prev) => prev || info.barrio);
+            }}
+          />
         </div>
       </Section>
 
