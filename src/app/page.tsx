@@ -3,7 +3,7 @@ import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
 import InventoryMap from '@/components/InventoryMap';
-import { getFeaturedProperties, getLatestProperties, getMappedProperties } from '@/lib/queries';
+import { getAvailableTipos, getFeaturedProperties, getLatestProperties, getMappedProperties } from '@/lib/queries';
 import { siteConfig } from '@/lib/config';
 import { TIPOS } from '@/lib/labels';
 
@@ -28,11 +28,13 @@ const valores = [
 ];
 
 export default async function HomePage() {
-  const [featured, mapped, latest] = await Promise.all([
+  const [featured, mapped, latest, tiposDisponibles] = await Promise.all([
     getFeaturedProperties(6),
     getMappedProperties(),
     getLatestProperties(8),
+    getAvailableTipos(),
   ]);
+  const tiposActivos = TIPOS.filter((t) => tiposDisponibles.includes(t.value));
 
   return (
     <>
@@ -75,20 +77,22 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORIAS */}
-      <section className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap gap-3">
-          {TIPOS.map((t) => (
-            <Link
-              key={t.value}
-              href={`/propiedades?tipo=${t.value}`}
-              className="rounded-full border border-[var(--color-line)] bg-[var(--color-surface)] px-5 py-2 text-sm font-medium transition-colors hover:border-[var(--color-gold)] hover:text-[var(--color-gold-deep)]"
-            >
-              {t.label}
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* CATEGORIAS: solo tipos con inventario publicado */}
+      {tiposActivos.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-3">
+            {tiposActivos.map((t) => (
+              <Link
+                key={t.value}
+                href={`/propiedades?tipo=${t.value}`}
+                className="rounded-full border border-[var(--color-line)] bg-[var(--color-surface)] px-5 py-2 text-sm font-medium transition-colors hover:border-[var(--color-gold)] hover:text-[var(--color-gold-deep)]"
+              >
+                {t.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* DESTACADOS */}
       {featured.length > 0 && (

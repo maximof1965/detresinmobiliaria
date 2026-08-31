@@ -129,6 +129,12 @@ export async function getMappedProperties(): Promise<MappedProperty[]> {
     });
 }
 
+export async function getAvailableTipos(): Promise<string[]> {
+  const supabase = await createClient();
+  const { data } = await supabase.from('properties').select('tipo').eq('publicado', true);
+  return [...new Set((data ?? []).map((r) => r.tipo).filter(Boolean))];
+}
+
 export async function getAllPublishedSlugs(): Promise<string[]> {
   const supabase = await createClient();
   const { data } = await supabase.from('properties').select('slug').eq('publicado', true);
