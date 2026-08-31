@@ -36,7 +36,7 @@ export default function Gallery({
   if (!images || images.length === 0) {
     return (
       <div className="flex aspect-[16/10] items-center justify-center rounded-[var(--radius-card)] bg-[var(--color-sand)] text-[var(--color-muted)]">
-        Sin imagenes
+        Sin imágenes
       </div>
     );
   }

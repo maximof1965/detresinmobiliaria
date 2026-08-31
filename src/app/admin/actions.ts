@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import type { PropertyInsert } from '@/lib/database.types';
+import { formatAmenities } from '@/lib/spanish';
 
 function slugify(text: string): string {
   return text
@@ -28,10 +29,12 @@ function numOr(v: FormDataEntryValue | null, fallback: number): number {
 
 function parseAmenidades(v: FormDataEntryValue | null): string[] {
   if (!v) return [];
-  return String(v)
-    .split(/[\n,]/)
-    .map((s) => s.trim())
-    .filter(Boolean);
+  return formatAmenities(
+    String(v)
+      .split(/[\n,]/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+  );
 }
 
 async function requireUser() {

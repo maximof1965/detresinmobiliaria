@@ -61,7 +61,7 @@ export default function ImageManager({
       if (fileRef.current) fileRef.current.value = '';
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Error al subir imagenes');
+      setError(e instanceof Error ? e.message : 'Error al subir imágenes');
     } finally {
       setBusy(false);
     }
@@ -119,10 +119,10 @@ export default function ImageManager({
 
   return (
     <div className="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
-      <h2 className="font-display text-lg font-semibold">Imagenes</h2>
+      <h2 className="font-display text-lg font-semibold">Imágenes</h2>
       <p className="mt-1 text-sm text-[var(--color-muted)]">
         Sube fotos desde tu equipo (PNG, JPG, JPEG o WEBP). Arrastra las fotos para ordenarlas; la
-        primera sera la principal.
+        primera será la principal.
       </p>
 
       <input

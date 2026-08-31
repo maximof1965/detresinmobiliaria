@@ -64,7 +64,7 @@ export default function InventoryList({ properties }: { properties: InventoryIte
   return (
     <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)]">
       <div className="flex items-center justify-between gap-3 border-b border-[var(--color-line)] bg-[var(--color-sand)]/30 px-4 py-2 text-xs text-[var(--color-muted)]">
-        <span>Arrastra desde el icono ⠿ para cambiar el orden. Ese orden se refleja en la pagina publica.</span>
+        <span>Arrastra desde el icono ⠿ para cambiar el orden. Ese orden se refleja en la página pública.</span>
         {saving && <span className="text-[var(--color-gold-deep)]">Guardando orden...</span>}
       </div>
       <div className="overflow-x-auto">
@@ -72,7 +72,7 @@ export default function InventoryList({ properties }: { properties: InventoryIte
           <thead className="border-b border-[var(--color-line)] text-left text-xs uppercase text-[var(--color-muted)]">
             <tr>
               <th className="w-10 px-2 py-3"></th>
-              <th className="px-4 py-3">Titulo</th>
+              <th className="px-4 py-3">Título</th>
               <th className="px-4 py-3">Tipo</th>
               <th className="px-4 py-3">Precio</th>
               <th className="px-4 py-3">Estado</th>

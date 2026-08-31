@@ -39,11 +39,11 @@ export default function ContactForm({
     }
 
     const lineas = [
-      `Hola ${siteConfig.name}, quiero mas informacion${
+      `Hola ${siteConfig.name}, quiero más información${
         propertyTitle ? ` sobre "${propertyTitle}"` : ''
       }.`,
       nombre ? `Nombre: ${nombre}` : '',
-      telefono ? `Telefono: ${telefono}` : '',
+      telefono ? `Teléfono: ${telefono}` : '',
       email ? `Correo: ${email}` : '',
       mensaje ? `Mensaje: ${mensaje}` : '',
     ].filter(Boolean);
@@ -60,8 +60,8 @@ export default function ContactForm({
       )}
       <input name="nombre" required placeholder="Nombre completo" className={inputCls} />
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="telefono" placeholder="Telefono" className={inputCls} />
-        <input name="email" type="email" placeholder="Correo electronico" className={inputCls} />
+        <input name="telefono" placeholder="Teléfono" className={inputCls} />
+        <input name="email" type="email" placeholder="Correo electrónico" className={inputCls} />
       </div>
       <textarea
         name="mensaje"
@@ -78,12 +78,12 @@ export default function ContactForm({
         {status === 'loading' ? 'Abriendo WhatsApp...' : 'Enviar por WhatsApp'}
       </button>
       <p className="text-center text-xs text-[var(--color-muted)]">
-        Al enviar, se abrira WhatsApp con tu mensaje listo para enviarnos.
+        Al enviar, se abrirá WhatsApp con tu mensaje listo para enviarnos.
       </p>
 
       {status === 'error' && (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
-          Ocurrio un error al enviar. Intenta de nuevo o escribenos por WhatsApp.
+          Ocurrió un error al enviar. Intenta de nuevo o escríbenos por WhatsApp.
         </p>
       )}
     </form>

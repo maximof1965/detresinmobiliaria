@@ -49,11 +49,11 @@ export default function Filters() {
           </Field>
 
           <Field label="Ciudad">
-            <input name="ciudad" defaultValue={get('ciudad')} placeholder="Ej: Medellin" className={inputCls} />
+            <input name="ciudad" defaultValue={get('ciudad')} placeholder="Ej: Medellín" className={inputCls} />
           </Field>
 
           <Field label="Palabra clave">
-            <input name="q" defaultValue={get('q')} placeholder="Barrio, titulo..." className={inputCls} />
+            <input name="q" defaultValue={get('q')} placeholder="Barrio, título..." className={inputCls} />
           </Field>
 
           <Field label="Precio desde">
@@ -61,10 +61,10 @@ export default function Filters() {
           </Field>
 
           <Field label="Precio hasta">
-            <input name="precioMax" defaultValue={get('precioMax')} type="number" placeholder="Sin limite" className={inputCls} />
+            <input name="precioMax" defaultValue={get('precioMax')} type="number" placeholder="Sin límite" className={inputCls} />
           </Field>
 
-          <Field label="Alcobas (min)">
+          <Field label="Alcobas (mín.)">
             <select name="alcobas" defaultValue={get('alcobas')} className={inputCls}>
               <option value="">Todas</option>
               {[1, 2, 3, 4, 5].map((n) => (
@@ -75,7 +75,7 @@ export default function Filters() {
             </select>
           </Field>
 
-          <Field label="Banos (min)">
+          <Field label="Baños (mín.)">
             <select name="banos" defaultValue={get('banos')} className={inputCls}>
               <option value="">Todos</option>
               {[1, 2, 3, 4, 5].map((n) => (

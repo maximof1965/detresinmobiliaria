@@ -28,11 +28,11 @@ export default function PropertyForm({
 
   return (
     <form action={action} className="space-y-8">
-      <Section title="Informacion principal">
+      <Section title="Información principal">
         {/* Por ahora la inmobiliaria solo maneja ventas */}
         <input type="hidden" name="operacion" value="venta" />
         <div className="grid gap-4 sm:grid-cols-2">
-          <Field label="Titulo" className="sm:col-span-2">
+          <Field label="Título" className="sm:col-span-2">
             <input name="titulo" required defaultValue={initial?.titulo ?? ''} className={inputCls} />
           </Field>
           <Field label="Tipo">
@@ -59,15 +59,15 @@ export default function PropertyForm({
         </div>
       </Section>
 
-      <Section title="Caracteristicas">
+      <Section title="Características">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Field label="Area (m2)">
+          <Field label="Área (m²)">
             <input name="area_m2" type="number" defaultValue={initial?.area_m2 ?? ''} className={inputCls} />
           </Field>
           <Field label="Alcobas">
             <input name="alcobas" type="number" defaultValue={initial?.alcobas ?? 0} className={inputCls} />
           </Field>
-          <Field label="Banos">
+          <Field label="Baños">
             <input name="banos" type="number" step="0.5" defaultValue={initial?.banos ?? 0} className={inputCls} />
           </Field>
           <Field label="Parqueaderos">
@@ -76,7 +76,7 @@ export default function PropertyForm({
         </div>
       </Section>
 
-      <Section title="Ubicacion">
+      <Section title="Ubicación">
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Ciudad">
             <input
@@ -94,7 +94,7 @@ export default function PropertyForm({
               className={inputCls}
             />
           </Field>
-          <Field label="Direccion" className="sm:col-span-2">
+          <Field label="Dirección" className="sm:col-span-2">
             <input
               name="direccion"
               value={direccion}
@@ -105,7 +105,7 @@ export default function PropertyForm({
         </div>
         <div className="mt-4">
           <span className="mb-1 block text-xs font-medium text-[var(--color-muted)]">
-            Ubicacion en el mapa (haz clic para fijar el punto y autocompletar la direccion)
+            Ubicación en el mapa (haz clic para fijar el punto y autocompletar la dirección)
           </span>
           <LocationPicker
             initialLat={initial?.lat ?? null}
@@ -120,19 +120,19 @@ export default function PropertyForm({
       </Section>
 
       <Section title="Detalle">
-        <Field label="Descripcion">
+        <Field label="Descripción">
           <textarea name="descripcion" rows={6} defaultValue={initial?.descripcion ?? ''} className={`${inputCls} h-auto py-3`} />
         </Field>
         <div className="mt-4">
           <span className="mb-1 block text-xs font-medium text-[var(--color-muted)]">Amenidades</span>
           <AmenitiesInput initial={initial?.amenidades ?? []} />
         </div>
-        <Field label="Slug (URL, opcional; se genera automatico)" className="mt-4">
+        <Field label="Slug (URL, opcional; se genera automático)" className="mt-4">
           <input name="slug" defaultValue={initial?.slug ?? ''} className={inputCls} />
         </Field>
       </Section>
 
-      <Section title="Publicacion">
+      <Section title="Publicación">
         <div className="flex flex-wrap gap-6">
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" name="publicado" defaultChecked={initial?.publicado ?? false} className="h-4 w-4" />

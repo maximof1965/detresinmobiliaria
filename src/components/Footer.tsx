@@ -69,7 +69,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {siteConfig.fullName}. Todos los derechos reservados.
           </p>
           <Link href="/admin" className="hover:text-white">
-            Panel de administracion
+            Panel de administración
           </Link>
         </div>
       </div>

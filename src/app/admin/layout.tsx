@@ -5,7 +5,7 @@ import LogoutButton from '@/components/admin/LogoutButton';
 import Logo from '@/components/Logo';
 
 export const metadata: Metadata = {
-  title: 'Administracion',
+  title: 'Administración',
   robots: { index: false, follow: false },
 };
 

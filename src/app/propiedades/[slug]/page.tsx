@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Gallery from '@/components/Gallery';
 import ContactForm from '@/components/ContactForm';
+import PropertyLocationMap from '@/components/PropertyLocationMap';
 import { getPropertyBySlug } from '@/lib/queries';
 import { formatPrice, formatArea } from '@/lib/format';
 import { labelFor, TIPOS, ESTADOS } from '@/lib/labels';
@@ -43,14 +44,12 @@ export default async function PropertyPage({
 
   const specs = [
     property.alcobas > 0 ? { label: 'Alcobas', value: property.alcobas } : null,
-    property.banos > 0 ? { label: 'Banos', value: property.banos } : null,
+    property.banos > 0 ? { label: 'Baños', value: property.banos } : null,
     property.parqueaderos > 0 ? { label: 'Parqueaderos', value: property.parqueaderos } : null,
-    area ? { label: 'Area', value: area } : null,
+    area ? { label: 'Área', value: area } : null,
   ].filter(Boolean) as { label: string; value: string | number }[];
 
-  const mapSrc = property.lat && property.lng
-    ? `https://www.openstreetmap.org/export/embed.html?bbox=${property.lng - 0.01}%2C${property.lat - 0.01}%2C${property.lng + 0.01}%2C${property.lat + 0.01}&layer=mapnik&marker=${property.lat}%2C${property.lng}`
-    : null;
+  const hasMap = property.lat != null && property.lng != null;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -91,7 +90,7 @@ export default async function PropertyPage({
 
           {property.descripcion && (
             <div className="mt-8">
-              <h2 className="font-display text-2xl font-semibold">Descripcion</h2>
+              <h2 className="font-display text-2xl font-semibold">Descripción</h2>
               <p className="mt-3 whitespace-pre-line leading-relaxed text-[var(--color-ink-soft)]">
                 {property.descripcion}
               </p>
@@ -112,16 +111,11 @@ export default async function PropertyPage({
             </div>
           )}
 
-          {mapSrc && (
+          {hasMap && (
             <div className="mt-8">
-              <h2 className="font-display text-2xl font-semibold">Ubicacion</h2>
+              <h2 className="font-display text-2xl font-semibold">Ubicación</h2>
               <div className="mt-3 overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-line)]">
-                <iframe
-                  src={mapSrc}
-                  className="h-80 w-full"
-                  loading="lazy"
-                  title={`Mapa de ${property.titulo}`}
-                />
+                <PropertyLocationMap lat={property.lat!} lng={property.lng!} title={property.titulo} />
               </div>
             </div>
           )}
@@ -145,7 +139,7 @@ export default async function PropertyPage({
             </div>
 
             <div className="mt-6 rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
-              <h3 className="font-display text-xl font-semibold">Solicita mas informacion</h3>
+              <h3 className="font-display text-xl font-semibold">Solicita más información</h3>
               <div className="mt-4">
                 <ContactForm propertyId={property.id} propertyTitle={property.titulo} />
               </div>

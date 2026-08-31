@@ -6,15 +6,15 @@
 export const siteConfig = {
   name: 'DeTres',
   fullName: 'DeTres Inmobiliaria',
-  tagline: 'Encuentra el lugar que transforma tu forma de vivir',
-  slogan: 'Mas que propiedades, oportunidades.',
+  tagline: 'Construimos tu futuro con confianza',
+  slogan: 'Más que propiedades, oportunidades.',
   description:
-    'Inmobiliaria de propiedades exclusivas en venta en Medellin y el Oriente Antioqueno. Casas, apartamentos, fincas y lotes.',
+    'Firma inmobiliaria en Medellín y el Oriente Antioqueño. Integramos avalúos, análisis económico y acompañamiento para comprar, vender e invertir con seguridad.',
   // Numero de contacto (formato internacional sin + ni espacios para wa.me)
   whatsapp: '573007110095',
   phoneDisplay: '+57 300 711 0095',
   email: 'detresinmobiliaria@gmail.com',
-  location: 'Medellin, Colombia',
+  location: 'Medellín, Colombia',
   social: {
     instagram: 'https://instagram.com',
     facebook: 'https://facebook.com',

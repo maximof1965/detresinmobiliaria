@@ -3,6 +3,7 @@
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef, useState } from 'react';
 import type { Map as LeafletMap, Marker, LeafletMouseEvent } from 'leaflet';
+import { brandCircleIcon } from '@/lib/map-marker';
 
 // Centro por defecto: Medellin
 const DEFAULT_CENTER: [number, number] = [6.2442, -75.5812];
@@ -69,12 +70,7 @@ export default function LocationPicker({
         maxZoom: 19,
       }).addTo(map);
 
-      const pin = L.divIcon({
-        className: '',
-        html: '<div style="font-size:28px;line-height:1">📍</div>',
-        iconSize: [28, 28],
-        iconAnchor: [14, 28],
-      });
+      const pin = brandCircleIcon(L);
 
       if (initialLat != null && initialLng != null) {
         markerRef.current = L.marker([initialLat, initialLng], { icon: pin }).addTo(map);
@@ -127,10 +123,10 @@ export default function LocationPicker({
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--color-muted)]">
         <span>
           {geocoding
-            ? 'Buscando direccion...'
+            ? 'Buscando dirección...'
             : lat != null && lng != null
-            ? `Ubicacion fijada: ${lat.toFixed(6)}, ${lng.toFixed(6)}`
-            : 'Haz clic en el mapa para fijar la ubicacion de la propiedad.'}
+            ? `Ubicación fijada: ${lat.toFixed(6)}, ${lng.toFixed(6)}`
+            : 'Haz clic en el mapa para fijar la ubicación de la propiedad.'}
         </span>
         {lat != null && lng != null && (
           <button
@@ -138,7 +134,7 @@ export default function LocationPicker({
             onClick={clear}
             className="rounded-lg border border-[var(--color-line)] px-3 py-1 font-medium hover:bg-[var(--color-sand)]"
           >
-            Quitar ubicacion
+            Quitar ubicación
           </button>
         )}
       </div>

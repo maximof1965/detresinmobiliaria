@@ -53,7 +53,7 @@ export default async function AdminDashboard() {
       </section>
 
       <section>
-        <h2 className="mb-4 font-display text-2xl font-semibold">Ultimas solicitudes</h2>
+        <h2 className="mb-4 font-display text-2xl font-semibold">Últimas solicitudes</h2>
         <div className="overflow-hidden rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)]">
           {(!leads || leads.length === 0) && (
             <p className="px-4 py-8 text-center text-sm text-[var(--color-muted)]">Aun no hay solicitudes.</p>

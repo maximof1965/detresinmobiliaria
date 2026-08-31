@@ -11,7 +11,7 @@ export const TIPOS: Option[] = [
   { value: 'apartaestudio', label: 'Apartaestudio' },
   { value: 'casa', label: 'Casa' },
   { value: 'casa_campestre', label: 'Casa campestre' },
-  { value: 'duplex', label: 'Duplex' },
+  { value: 'duplex', label: 'Dúplex' },
   { value: 'finca', label: 'Finca' },
   { value: 'lote', label: 'Lote / Terreno' },
   { value: 'oficina', label: 'Oficina' },
@@ -23,7 +23,7 @@ export const ESTADOS: Option[] = [
   { value: 'nuevo', label: 'Nuevo' },
   { value: 'usado', label: 'Usado' },
   { value: 'proyecto', label: 'Proyecto' },
-  { value: 'en_construccion', label: 'En construccion' },
+  { value: 'en_construccion', label: 'En construcción' },
 ];
 
 export function labelFor(list: Option[], value: string | null | undefined): string {

@@ -1,15 +1,16 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { formatAmenity, formatAmenities } from '@/lib/spanish';
 
 export default function AmenitiesInput({ initial }: { initial?: string[] }) {
-  const [items, setItems] = useState<string[]>(initial ?? []);
+  const [items, setItems] = useState<string[]>(formatAmenities(initial ?? []));
   const [value, setValue] = useState('');
   const dragIndex = useRef<number | null>(null);
   const [dragging, setDragging] = useState<number | null>(null);
 
   function add() {
-    const v = value.trim();
+    const v = formatAmenity(value);
     if (!v) return;
     if (!items.some((it) => it.toLowerCase() === v.toLowerCase())) {
       setItems((prev) => [...prev, v]);

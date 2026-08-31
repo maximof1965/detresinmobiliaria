@@ -4,7 +4,7 @@ import { siteConfig, whatsappUrl } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: 'Contacto',
-  description: 'Escribenos y te ayudamos a encontrar o publicar tu propiedad.',
+  description: 'Déjanos tus datos y recibe una asesoría personalizada de DeTres Inmobiliaria.',
 };
 
 export default function ContactoPage() {
@@ -15,19 +15,20 @@ export default function ContactoPage() {
           <p className="text-sm font-medium uppercase tracking-wide text-[var(--color-gold-deep)]">
             Contacto
           </p>
-          <h1 className="mt-2 font-display text-4xl font-semibold">Estamos para ayudarte</h1>
+          <h1 className="mt-2 font-display text-4xl font-semibold">Contáctanos</h1>
           <p className="mt-4 max-w-md text-[var(--color-muted)]">
-            Cuentanos que buscas o que propiedad quieres vender. Te responderemos lo antes
-            posible.
+            Déjanos tus datos y recibe una asesoría personalizada para la venta de propiedades,
+            avalúos profesionales o soluciones hipotecarias, con el respaldo de un equipo
+            comprometido con tu patrimonio.
           </p>
 
           <div className="mt-8 space-y-4 text-sm">
             <div>
-              <p className="font-medium">Ubicacion</p>
+              <p className="font-medium">Ubicación</p>
               <p className="text-[var(--color-muted)]">{siteConfig.location}</p>
             </div>
             <div>
-              <p className="font-medium">Telefono</p>
+              <p className="font-medium">Teléfono</p>
               <a href={`tel:${siteConfig.whatsapp}`} className="text-[var(--color-muted)] hover:text-[var(--color-ink)]">
                 {siteConfig.phoneDisplay}
               </a>
@@ -50,7 +51,7 @@ export default function ContactoPage() {
         </div>
 
         <div className="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] p-6 sm:p-8">
-          <h2 className="font-display text-2xl font-semibold">Envianos un mensaje</h2>
+          <h2 className="font-display text-2xl font-semibold">Envíanos un mensaje</h2>
           <div className="mt-6">
             <ContactForm />
           </div>

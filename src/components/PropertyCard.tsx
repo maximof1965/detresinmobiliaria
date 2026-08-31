@@ -54,7 +54,7 @@ export default function PropertyCard({ property }: { property: PropertyWithImage
 
         <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-t border-[var(--color-line)] pt-3 text-sm text-[var(--color-ink-soft)]">
           {property.alcobas > 0 && <span>{property.alcobas} alcobas</span>}
-          {property.banos > 0 && <span>{property.banos} banos</span>}
+          {property.banos > 0 && <span>{property.banos} baños</span>}
           {area && <span>{area}</span>}
         </div>
       </div>

@@ -2,7 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SearchBar from '@/components/SearchBar';
 import PropertyCard from '@/components/PropertyCard';
-import { getCities, getFeaturedProperties, getLatestProperties } from '@/lib/queries';
+import InventoryMap from '@/components/InventoryMap';
+import { getFeaturedProperties, getLatestProperties, getMappedProperties } from '@/lib/queries';
 import { siteConfig } from '@/lib/config';
 import { TIPOS } from '@/lib/labels';
 
@@ -13,23 +14,23 @@ const HERO_IMG =
 
 const valores = [
   {
-    title: 'Curaduria experta',
-    text: 'Seleccionamos cada propiedad con criterio para ofrecerte solo lo mejor del mercado.',
+    title: 'Avalúos profesionales',
+    text: 'Valoración de inmuebles realizada por un experto, para decidir con información real.',
   },
   {
-    title: 'Acompanamiento total',
-    text: 'Desde la primera visita hasta la firma, un asesor dedicado a tu proceso.',
+    title: 'Análisis de inversión',
+    text: 'Lectura financiera y económica para comprar, vender o invertir con criterio.',
   },
   {
-    title: 'Confianza y transparencia',
-    text: 'Informacion verificada, precios claros y trato honesto en cada negociacion.',
+    title: 'Acompañamiento integral',
+    text: 'Desde la primera decisión hasta el cierre, con atención personalizada y transparente.',
   },
 ];
 
 export default async function HomePage() {
-  const [featured, cities, latest] = await Promise.all([
+  const [featured, mapped, latest] = await Promise.all([
     getFeaturedProperties(6),
-    getCities(),
+    getMappedProperties(),
     getLatestProperties(8),
   ]);
 
@@ -51,7 +52,8 @@ export default async function HomePage() {
               {siteConfig.slogan}
             </p>
             <p className="mt-5 max-w-xl text-lg text-white/80">
-              Propiedades exclusivas en venta, seleccionadas para quienes buscan algo extraordinario.
+              Integramos conocimiento, confianza y estrategia para maximizar el valor de cada
+              inversión.
             </p>
           </div>
           <div className="mt-10 max-w-4xl">
@@ -94,7 +96,7 @@ export default async function HomePage() {
           <div className="mb-8 flex items-end justify-between">
             <div>
               <p className="text-sm font-medium uppercase tracking-wide text-[var(--color-gold-deep)]">
-                Seleccion
+                Selección
               </p>
               <h2 className="mt-1 font-display text-3xl font-semibold">Propiedades destacadas</h2>
             </div>
@@ -110,45 +112,36 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* CIUDADES */}
-      {cities.length > 0 && (
-        <section className="bg-[var(--color-sand)]/40">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-            <h2 className="font-display text-3xl font-semibold">Explora por ubicacion</h2>
-            <p className="mt-1 text-[var(--color-muted)]">Las zonas mas buscadas del Oriente Antioqueno y Medellin.</p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {cities.map((c) => (
-                <Link
-                  key={c.id}
-                  href={`/propiedades?ciudad=${encodeURIComponent(c.nombre)}`}
-                  className="group relative flex h-48 items-end overflow-hidden rounded-[var(--radius-card)]"
-                >
-                  {c.imagen_url && (
-                    <Image
-                      src={c.imagen_url}
-                      alt={c.nombre}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="relative p-5 text-white">
-                    <h3 className="font-display text-xl font-semibold">{c.nombre}</h3>
-                    {c.descripcion && <p className="mt-1 text-sm text-white/80 line-clamp-2">{c.descripcion}</p>}
-                  </div>
-                </Link>
-              ))}
+      {/* MAPA DE INVENTARIO */}
+      <section className="bg-[var(--color-sand)]/40">
+        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="font-display text-3xl font-semibold">Explora por ubicación</h2>
+              <p className="mt-1 text-[var(--color-muted)]">
+                Todas las propiedades publicadas, en un mapa que puedes mover, ampliar y consultar.
+              </p>
             </div>
+            <p className="text-sm text-[var(--color-muted)]">
+              {mapped.length} {mapped.length === 1 ? 'propiedad' : 'propiedades'} en el mapa
+            </p>
           </div>
-        </section>
-      )}
+          {mapped.length > 0 ? (
+            <InventoryMap properties={mapped} />
+          ) : (
+            <p className="rounded-[var(--radius-card)] border border-[var(--color-line)] bg-[var(--color-surface)] px-5 py-10 text-center text-[var(--color-muted)]">
+              Aún no hay propiedades con ubicación en el mapa. Cuando el equipo fije un punto al
+              publicar, aparecerán aquí.
+            </p>
+          )}
+        </div>
+      </section>
 
       {/* ULTIMAS */}
       {latest.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <div className="mb-8 flex items-end justify-between">
-            <h2 className="font-display text-3xl font-semibold">Ultimas propiedades</h2>
+            <h2 className="font-display text-3xl font-semibold">Últimas propiedades</h2>
             <Link href="/propiedades" className="hidden text-sm font-medium hover:text-[var(--color-gold-deep)] sm:block">
               Ver todas →
             </Link>
@@ -165,10 +158,10 @@ export default async function HomePage() {
       <section className="bg-[var(--color-ink)]">
         <div className="mx-auto flex max-w-7xl flex-col items-center gap-6 px-4 py-16 text-center sm:px-6 lg:px-8">
           <h2 className="max-w-2xl font-display text-3xl font-semibold text-white sm:text-4xl">
-            Tienes una propiedad para vender?
+            ¿Tienes una propiedad para vender?
           </h2>
           <p className="max-w-xl text-white/70">
-            Te ayudamos a mostrarla ante los compradores correctos, con estrategia y presencia digital.
+            Te acompañamos desde la valoración hasta el cierre, con estrategia y presencia digital.
           </p>
           <Link
             href="/contacto"

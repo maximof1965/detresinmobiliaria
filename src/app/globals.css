@@ -65,3 +65,45 @@ body {
 .animate-fade-in-up {
   animation: fadeInUp 0.7s ease-out both;
 }
+
+.detres-dot {
+  background: transparent !important;
+  border: none !important;
+}
+
+.detres-dot-inner {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 3px rgba(176, 137, 79, 0.28);
+}
+
+.detres-popup-wrap .leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(22, 21, 15, 0.12);
+}
+
+.detres-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+}
+
+.detres-popup strong {
+  font-size: 13px;
+}
+
+.detres-popup span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.detres-popup em {
+  font-size: 12px;
+  font-style: normal;
+  color: #6d6a60;
+}

@@ -21,7 +21,7 @@ export default function LoginPage() {
       password: String(data.get('password') ?? ''),
     });
     if (error) {
-      setError('Credenciales incorrectas. Verifica tu correo y contrasena.');
+      setError('Credenciales incorrectas. Verifica tu correo y contraseña.');
       setLoading(false);
       return;
     }
@@ -41,7 +41,7 @@ export default function LoginPage() {
             priority
             className="h-24 w-24 rounded-[var(--radius-card)] object-contain"
           />
-          <h1 className="mt-4 font-display text-2xl font-semibold">Panel de administracion</h1>
+          <h1 className="mt-4 font-display text-2xl font-semibold">Panel de administración</h1>
           <p className="mt-1 text-sm text-[var(--color-muted)]">
             Ingresa con tu cuenta de administrador.
           </p>
@@ -49,7 +49,7 @@ export default function LoginPage() {
 
         <form onSubmit={submit} className="mt-2 space-y-3">
           <input name="email" type="email" required placeholder="Correo" className={inputCls} />
-          <input name="password" type="password" required placeholder="Contrasena" className={inputCls} />
+          <input name="password" type="password" required placeholder="Contraseña" className={inputCls} />
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button
             type="submit"
