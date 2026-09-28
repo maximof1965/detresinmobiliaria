@@ -19,7 +19,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://detresinmobiliaria.vercel.app'),
+  metadataBase: new URL("https://www.detresinmobiliaria.com"),
   title: {
     default: `${siteConfig.fullName} | ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.name}`,
